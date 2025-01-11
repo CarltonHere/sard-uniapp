@@ -1,0 +1,13 @@
+@mixin theme-dark {
+  @media (prefers-color-scheme: dark) {
+    page {
+      @content;
+    }
+  }
+
+  /* #ifdef WEB */
+  :root[data-sard-theme='dark'] page {
+    @content;
+  }
+  /* #endif */
+}

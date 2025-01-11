@@ -1,0 +1,49 @@
+<template>
+  <view
+    :class="navbarClass"
+    :style="navbarStyle"
+    @click="$emit('click', $event)"
+  >
+    <slot></slot>
+  </view>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { classNames, stringifyStyle, createBem } from '../../utils'
+import {
+  type NavbarItemProps,
+  type NavbarItemSlots,
+  type NavbarItemEmits,
+} from '../navbar/common'
+
+defineOptions({
+  options: {
+    virtualHost: true,
+    styleIsolation: 'shared',
+  },
+})
+
+const props = withDefaults(defineProps<NavbarItemProps>(), {})
+
+defineSlots<NavbarItemSlots>()
+
+defineEmits<NavbarItemEmits>()
+
+const bem = createBem('navbar')
+
+// main
+
+// others
+const navbarClass = computed(() => {
+  return classNames(bem.e('item'), props.rootClass)
+})
+
+const navbarStyle = computed(() => {
+  return stringifyStyle(props.rootStyle)
+})
+</script>
+
+<style lang="scss">
+@import './index.scss';
+</style>
